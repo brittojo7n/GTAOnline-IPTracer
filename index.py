@@ -47,7 +47,7 @@ def get_ip_info(ip):
                     "ip": ip,
                     "country": country,
                     "region": data.get("region", "Unknown"),
-                    "org": data.get("connection", {}).get("org", "Unknown")
+                    "isp": data.get("connection", {}).get("isp", "Unknown")
                 }
     except Exception as e:
         pass  
@@ -65,7 +65,7 @@ def get_ip_info(ip):
                         "ip": ip,
                         "country": country,
                         "region": data.get("regionName", "Unknown"),
-                        "org": data.get("org", "Unknown")
+                        "isp": data.get("isp", "Unknown")
                     }
         except Exception as e:
             pass 
@@ -82,7 +82,7 @@ def get_ip_info(ip):
                     "ip": ip,
                     "country": country,
                     "region": data.get("region", "Unknown"),
-                    "org": data.get("org", "Unknown")
+                    "isp": data.get("org", "Unknown")
                 }
         except Exception as e:
             pass 
@@ -93,7 +93,7 @@ def get_ip_info(ip):
             "ip": ip,
             "country": "Unknown",
             "region": "Unknown",
-            "org": "Unknown"
+            "isp": "Unknown"
         }
 
     return ip_info
@@ -101,10 +101,10 @@ def get_ip_info(ip):
 def log_ip(ip):
     info = get_ip_info(ip)
 
-    if "Microsoft" in info['org']:
+    if "Microsoft" | "Rockstar" | "Take Two" in info['isp']:
         return
 
-    print_ip = f"{Fore.CYAN}{info['ip']}{Style.RESET_ALL} {info['region']}, {info['country']} {Fore.MAGENTA}{info['org']}"
+    print_ip = f"{Fore.CYAN}{info['ip']}{Style.RESET_ALL} {info['region']}, {info['country']} {Fore.MAGENTA}{info['isp']}"
     print(f"{Fore.GREEN}[+]{Style.RESET_ALL} {print_ip}{Style.RESET_ALL}")
 
 def packet_callback(packet):
