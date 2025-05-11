@@ -100,12 +100,11 @@ def get_ip_info(ip):
 
 def log_ip(ip):
     info = get_ip_info(ip)
-
-    if "Microsoft" | "Rockstar" | "Take Two" in info['isp']:
+    if any(keyword in info['isp'] for keyword in ["Microsoft", "Rockstar", "Take Two"]):
         return
-
-    print_ip = f"{Fore.CYAN}{info['ip']}{Style.RESET_ALL} {info['region']}, {info['country']} {Fore.MAGENTA}{info['isp']}"
-    print(f"{Fore.GREEN}[+]{Style.RESET_ALL} {print_ip}{Style.RESET_ALL}")
+    print_ip = f"{Fore.CYAN}{info['ip']}{Fore.YELLOW} {info['region']}, {info['country']} {Fore.MAGENTA}{info['isp']}"
+    log_ip.counter += 1
+    print(f"{Fore.GREEN}[{log_ip.counter}] {print_ip}{Style.RESET_ALL}")
 
 def packet_callback(packet):
     if IP in packet and UDP in packet:
@@ -120,5 +119,6 @@ def packet_callback(packet):
                     found_ips.add(ip)
                     log_ip(ip)
 
-print(f"{Fore.YELLOW}Listening for GTA Online player IPs (excluding Private, Rockstar, and Microsoft IPs)...")
+log_ip.counter = 0
+print(f"{Fore.GREEN}Listening for GTA Online player IPs...")
 sniff(filter="udp", prn=packet_callback, store=0)
