@@ -1,0 +1,5 @@
+scapy
+requests
+pycountry
+colorama
+psutil
