@@ -3,12 +3,16 @@ This project is designed to trace IP addresses of players in a session in GTA On
 
 **Note:** This tool does not display usernames associated with IP addresses, as such information is stored in the memory of the application and is not accessible.
 
-## Prerequisites
+## Use the Executables:
+[Download Latest Release](./releases/latest)
+
+## Manual setup
+### Prerequisites
 - Python 3.x installed
 - Required Python libraries (see below)
 - A stable internet connection
 
-## Installation
+### Installation
 1. Clone the repository:
     ```bash
     git clone https://github.com/yourusername/GTAOnline-IPTracer.git
@@ -19,7 +23,7 @@ This project is designed to trace IP addresses of players in a session in GTA On
     pip install -r requirements.txt
     ```
 
-## Usage
+### Usage
 1. Open a terminal and navigate to the project directory.
 2. Run the script:
     ```bash
@@ -31,7 +35,7 @@ This project is designed to trace IP addresses of players in a session in GTA On
     ```
     This disconnects you from current session and puts you into a public session.
 
-## Notes
+### Notes
 - Ensure you have the necessary permissions to run network-related scripts.
 - Use this tool responsibly and in compliance with applicable laws.
 
