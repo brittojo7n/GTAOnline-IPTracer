@@ -29,12 +29,7 @@ This project is designed to trace IP addresses of players in a session in GTA On
     ```bash
     python tracer.py
     ```
-3. You can also run this:
-    ```bash
-    python disconnect.py
-    ```
-    This disconnects you from current session and puts you into a public session.
-
+    
 ### Notes
 - Ensure you have the necessary permissions to run network-related scripts.
 - Use this tool responsibly and in compliance with applicable laws.

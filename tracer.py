@@ -101,10 +101,10 @@ def get_ip_info(ip):
 def log_ip(ip):
     info = get_ip_info(ip)
 
-    if "Microsoft Corporation" in info['org']:
+    if "Microsoft" in info['org']:
         return
 
-    print_ip = f"{Fore.CYAN}{info['ip']} {Fore.BLUE}{info['region']}, {info['country']} {Fore.RED}{info['org']}"
+    print_ip = f"{Fore.CYAN}{info['ip']}{Style.RESET_ALL} {info['region']}, {info['country']} {Fore.MAGENTA}{info['org']}"
     print(f"{Fore.GREEN}[+]{Style.RESET_ALL} {print_ip}{Style.RESET_ALL}")
 
 def packet_callback(packet):
@@ -120,5 +120,5 @@ def packet_callback(packet):
                     found_ips.add(ip)
                     log_ip(ip)
 
-print(f"{Fore.YELLOW}🔍 Listening for GTA Online player IPs (excluding private, Rockstar, and Microsoft IPs)...")
+print(f"{Fore.YELLOW}Listening for GTA Online player IPs (excluding Private, Rockstar, and Microsoft IPs)...")
 sniff(filter="udp", prn=packet_callback, store=0)
