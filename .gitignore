@@ -1,5 +1,6 @@
-.venv
-venv
-myenv
+.venv/
+venv/
+myenv/
 __pycache__/
-.env
+.env/
+GTAO_IP_Logs/
