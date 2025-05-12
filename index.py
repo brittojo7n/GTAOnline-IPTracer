@@ -40,7 +40,7 @@ def get_ip_info(ip):
         if res.status_code == 200:
             data = res.json()
             if data.get("success", False):
-                country = data.get("country_code", "Unknown")
+                country = data.get("country", "Unknown")
                 if len(country) == 2:  
                     country = get_country_name(country)
                 ip_info = {
@@ -51,24 +51,6 @@ def get_ip_info(ip):
                 }
     except Exception as e:
         pass  
-
-    if not ip_info:
-        try:
-            res = requests.get(f"http://ip-api.com/json/{ip}", timeout=3)
-            if res.status_code == 200:
-                data = res.json()
-                if data.get("status") != "fail":
-                    country = data.get("country", "Unknown")
-                    if len(country) == 2: 
-                        country = get_country_name(country)
-                    ip_info = {
-                        "ip": ip,
-                        "country": country,
-                        "region": data.get("regionName", "Unknown"),
-                        "isp": data.get("isp", "Unknown")
-                    }
-        except Exception as e:
-            pass 
 
     if not ip_info:
         try:
@@ -95,16 +77,16 @@ def get_ip_info(ip):
             "region": "Unknown",
             "isp": "Unknown"
         }
-
+        
     return ip_info
 
 def log_ip(ip):
     info = get_ip_info(ip)
     if any(keyword in info['isp'] for keyword in ["Microsoft", "Rockstar", "Take Two"]):
         return
-    print_ip = f"{Fore.CYAN}{info['ip']}{Fore.YELLOW} {info['region']}, {info['country']} {Fore.MAGENTA}{info['isp']}"
+    print_ip = f"{Style.RESET_ALL}IP: {Fore.CYAN}{info['ip']} \n{Style.RESET_ALL}REGION: {Fore.RED}{info['region']} {Style.RESET_ALL}COUNTRY: {Fore.YELLOW}{info['country']} \n{Style.RESET_ALL}ISP: {Fore.MAGENTA}{info['isp']}"
     log_ip.counter += 1
-    print(f"{Fore.GREEN}[{log_ip.counter}] {print_ip}{Style.RESET_ALL}")
+    print(f"{Fore.GREEN}[{log_ip.counter}]\n{print_ip}{Style.RESET_ALL}\n")
 
 def packet_callback(packet):
     if IP in packet and UDP in packet:
@@ -120,5 +102,5 @@ def packet_callback(packet):
                     log_ip(ip)
 
 log_ip.counter = 0
-print(f"{Fore.GREEN}Listening for GTA Online player IPs...")
+print(f"{Fore.YELLOW}Listening for GTA Online player IPs...")
 sniff(filter="udp", prn=packet_callback, store=0)
